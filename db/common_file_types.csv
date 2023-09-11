@@ -1,0 +1,27 @@
+File_Name,File_Extensions
+Folder,/
+Text Files,.doc .docx .eml .log .msg .odt .pages .rtf .tex .txt .wpd
+Data Files,.aae .bin .csv .dat .key .mpp .obb .ppt .pptx .rpt .sdf .tar .vcf .xml
+Audio Files,.aif .flac .m3u .m4a .mid .mp3 .ogg .wav .wma
+Video Files,.mkv .3gp .asf .avi .flv .m4v .mov .mp4 .mpg .srt .swf .ts .vob .wmv
+3D Image Files,.3dm .3ds .blend .dae .fbx .max .obj
+Raster Image Files,.bpm .dcm .dds .djvu .gif .heic .jpg .jpeg .png .psd .tga .tif
+Vector Image Files,.ai .cdr .emf .eps .ps .sketch .svg .vsdx
+Page Layout Files,.afpub .indd .oxps .pdf .pmd .pub .qxp .xps
+Spreadsheet Files,.numbers .ods .xlr .xls .xlsx
+Database Files,.accdb .crypt14 .db .mdb .odb .pdb .sql .sqlite
+Executable Files,.apk .app .bat .bin .cmd .com .exe .ipa .jar .run .sh
+Game Files,.bin .dem .gam .gba .nes .pak .pkg .rom .sav
+CAD Files,.dgn .dwg .dxf .step .stl .stp
+GIS Files,.gpx .kml .kmz .osm
+Web Files,.asp .aspx .cer .cfm .csr .css .html .js .json .jsp .php .xhtml
+Plugin Files,.crx .ecf .plugin .safariextz .xpi
+Font Files,.fnt .otf .ttf .woff .woff2
+System Files,.ani .cab .cpl .cur .deskthemepack .dll .dmp .drv .icns .ico .lnk .reg .sys
+Settings Files,.cfg .ini .pkg .prf .set
+Encoded Files,.asc .bin .enc .mim .uue
+Compressed Files,.7z .cbr .deb .gz .pak .pkg .rar .rpm .tar.gz .xapk .zip .zipx
+Disk Image Files,.bin .dmg .img .iso .mdf .rom .vcd
+Developer Files,.appx .c .class .config .cpp .cs .h .java .kt .lua .m .md .pl .py .sb3 .sln .swift .unity .vb .vcxproj .xcodeproj .yml
+Backup Files,.abk .arc .bak .tmp
+Misc Files,.crdownload .ics .msi .nomedia .part .pkpass .torrent
