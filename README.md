@@ -1,6 +1,6 @@
 # File Rename
 
-![File-Rename Image Preview](images/main.png)
+![File-Rename Image Preview](screenshots/main.png)
 
 File Rename
 
