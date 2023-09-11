@@ -1,4 +1,5 @@
 #--coding: utf-8 --
+# mypy: ignore-errors
 import json
 class Lang:
     def __init__(self, user_language: str, encode="utf-8") -> None:
@@ -21,6 +22,9 @@ class Lang:
         if len(self.messages["messages"]) > 0 and (message in self.messages["messages"]):
             return self.messages["messages"][message]
         return message
+    
+    def _m():
+        pass
 
     def translate_ui(self, MainWindow) -> None:
         self = MainWindow

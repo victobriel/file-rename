@@ -5,6 +5,7 @@ from package.ui.ui_main import Ui_MainWindow
 import re,datetime,zipfile,stat
 from package.configs.config import Config
 from package.lang.lang import Lang
+from typing import Callable
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self) -> None:
@@ -69,7 +70,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.statusBar.addPermanentWidget(self.progressBar)
         #load language
         self.lang: Lang = Lang(self.CONFIG.get("config", "language"), self.CONFIG.get("config", "encoding"))
-        self._m: callable = self.lang.translate
+        self._m: Callable  = self.lang.translate
         self.lang.translate_ui(self)
         #load application
         self.load_common_files()
