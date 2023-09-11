@@ -12,8 +12,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__()
         self.setupUi(self)
         self.setWindowTitle("File Rename")
-        #load configs
-        self.load_config()
+        self.load_config() #load config
+        appIcon = QtGui.QIcon("icons/folder.png") #set icon
+        self.setWindowIcon(appIcon)
         #menu bar
         self.actionOpen_Folder.triggered.connect(self.path_change)
         self.actionAlways_backup_before_renaming.triggered.connect(self.always_backup_click)
@@ -23,7 +24,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.actionDocumentation.triggered.connect(lambda: webbrowser.open("https://github.com/victobriel/file-rename"))
         self.actionAbout.triggered.connect(lambda: self.run_warning_box("File Rename Lite\nVersion: 1.0.0\nhttps://github.com/victobriel/file-rename/", default_button=True))
         #icons
-        self.openFolderButton.setIcon(QtGui.QIcon("icons/folder2.png"))
+        self.openFolderButton.setIcon(QtGui.QIcon("icons/folder.png"))
         self.specificFilesAddButton.setIcon(QtGui.QIcon("icons/add.png"))
         self.specificFilesClearButton.setIcon(QtGui.QIcon("icons/remove.png"))
 
