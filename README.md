@@ -15,7 +15,5 @@
 
 ### Installation
 
-### Languages
-
 ### Screenshots
 <img src="screenshots/main.png" alt="File-Rename Image Preview" width="500" style='text-align="center"'>
