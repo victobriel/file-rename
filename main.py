@@ -264,12 +264,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         REPLACELINE_VALUE = self.convert(REPLACELINE_VALUE)
         self.replaceLine.setText(REPLACELINE_VALUE)
 
-        FILESLIST_ROWS: int = self.filesList.rowCount()
+        FILELIST_ROWS: int = self.filesList.rowCount()
 
         self.invalidLabel.setText("")
 
         #clear table
-        for i in range(FILESLIST_ROWS):
+        for i in range(FILELIST_ROWS):
             self.filesList.setItem(i, 1, QtWidgets.QTableWidgetItem(""))
         self.update_table_list_color()
 
@@ -280,7 +280,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         NEW_VALUE: str = "" ; file_name: str ; file_extension: str
         match self.rulesCombo.currentIndex():
             case 0:
-                for file in range(FILESLIST_ROWS):
+                for file in range(FILELIST_ROWS):
                     file_name = os.path.splitext(self.filesList.item(file, 0).text())[0]
                     file_extension = self.filesList.item(file, 2).text()
                     if (self.allFilesCheckbox.isChecked()
@@ -297,7 +297,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                         self.filesList.item(file, 1).setBackground(self.DEFAULT_COLOR)
             case 1:
                 if self.regexCheckbox.isChecked():
-                    for file in range(FILESLIST_ROWS):
+                    for file in range(FILELIST_ROWS):
                         file_name = os.path.splitext(self.filesList.item(file, 0).text())[0]
                         file_extension = self.filesList.item(file, 2).text()
                         if (self.allFilesCheckbox.isChecked()
@@ -314,7 +314,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                             self.filesList.setItem(file, 1, QtWidgets.QTableWidgetItem(NEW_VALUE))
                             self.filesList.item(file, 1).setBackground(self.DEFAULT_COLOR)
                 else:
-                    for file in range(FILESLIST_ROWS):
+                    for file in range(FILELIST_ROWS):
                         file_name = os.path.splitext(self.filesList.item(file, 0).text())[0]
                         file_extension = self.filesList.item(file, 2).text()
                         if (self.allFilesCheckbox.isChecked()
@@ -330,7 +330,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                             self.filesList.setItem(file, 1, QtWidgets.QTableWidgetItem(NEW_VALUE))
                             self.filesList.item(file, 1).setBackground(self.DEFAULT_COLOR)
             case 2:
-                for file in range(FILESLIST_ROWS):
+                for file in range(FILELIST_ROWS):
                     file_name = os.path.splitext(self.filesList.item(file, 0).text())[0]
                     file_extension = self.filesList.item(file, 2).text()
                     if file_extension[0] != ".":
@@ -346,7 +346,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             case 3:
                 COUNT_SPIN: int = self.countSpin.value()
                 current_spin: int = self.startSpin.value()
-                for file in range(FILESLIST_ROWS):
+                for file in range(FILELIST_ROWS):
                     file_name = os.path.splitext(self.filesList.item(file, 0).text())[0]
                     file_extension = self.filesList.item(file, 2).text()
                     if (self.allFilesCheckbox.isChecked()
@@ -559,7 +559,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.filesList.item(i, j).setBackground(self.WHITE_COLOR)
 
     def specific_types_line_change(self) -> None:
-        #remove invalid caracters
+        #remove invalid characters
         REGEX: re.Pattern[str] = re.compile(r'[^A-Za-z0-9./ ]*$')
         for match in REGEX.finditer(self.specificFilesLine.text()):
             self.specificFilesLine.setText(self.specificFilesLine.text().replace(match.group(0), ""))

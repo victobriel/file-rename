@@ -8,9 +8,6 @@ class Config:
             self.CONFIG.add_section("config")
             self.CONFIG.set("config", "backup", "False")
             self.CONFIG.set("config", "language", language)
-            supported_languages = [f for f in os.listdir("package/lang/bases") if os.path.isfile(os.path.join("package/languages/bases", f)) and f.endswith(".json")]
-            self.CONFIG.set('config', '# Supported languages:', ''.join(supported_languages).replace(".json", ", ").rstrip(", "))
-            self.CONFIG.set('config', '# How to add new languages', 'https://github.com/victobriel/file-rename/README.md#how-add-new-language')
             self.CONFIG.set("config", "encoding", "utf-8")
             self.CONFIG.add_section("paths")
             self.CONFIG.set("paths", "protect_paths", "True")
