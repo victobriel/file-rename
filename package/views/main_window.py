@@ -137,7 +137,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         )
         self.openFolderButton.clicked.connect(self._on_path_change)
         self.renameButton.clicked.connect(self._on_rename_clicked)
-        self.exitButton.clicked.connect(lambda: sys.exit())
 
     def _wire_filters(self) -> None:
         self.includeSubdirCheckbox.clicked.connect(self._reload_current_directory)

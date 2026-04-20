@@ -1,996 +1,1806 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author>victobriel</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="enabled">
-   <bool>true</bool>
-  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1111</width>
-    <height>705</height>
+    <width>1216</width>
+    <height>660</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>980</width>
+    <height>620</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <family>Segoe UI</family>
+    <pointsize>10</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QLineEdit:disabled {
-	background-color: #eee
-}</string>
-  </property>
-  <property name="tabShape">
-   <enum>QTabWidget::Rounded</enum>
+   <string notr="true">/* =========================================================
+   Base
+   ========================================================= */
+QMainWindow, QWidget#centralwidget {
+    background-color: #1f2a38;
+    color: #e6edf3;
+    font-family: &quot;Segoe UI&quot;, &quot;Inter&quot;, &quot;Arial&quot;;
+    font-size: 10pt;
+}
+QWidget {
+    color: #e6edf3;
+}
+QWidget#mainColumn, QWidget#rightPanel, QWidget#leftPanel {
+    background-color: #1f2a38;
+    border: none;
+}
+QLabel {
+    color: #e6edf3;
+    background: transparent;
+}
+QLabel:disabled {
+    color: #556274;
+}
+QLabel#heroTitle {
+    color: #e6edf3;
+    font-size: 28pt;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+}
+QLabel#heroSubtitle {
+    color: #8b97a7;
+    font-size: 10pt;
+    padding: 0;
+    margin: 0;
+}
+
+/* =========================================================
+   Sections: card-style QGroupBox with an orange floating title
+   ========================================================= */
+QGroupBox {
+    background-color: #232f3e;
+    border: 1px solid #2a3748;
+    border-radius: 12px;
+    margin-top: 14px;
+    padding: 20px 20px 16px 20px;
+    color: #f97316;
+    font-size: 10pt;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 18px;
+    top: 2px;
+    padding: 2px 10px;
+    background-color: #1f2a38;
+    color: #f97316;
+    font-weight: 500;
+    font-size: 10pt;
+}
+
+/* Thin divider between step cards in the left column */
+QFrame#stepSeparator {
+    background-color: #2a3748;
+    color: #2a3748;
+    max-height: 1px;
+    min-height: 1px;
+    border: none;
+}
+
+/* =========================================================
+   Help &quot;banner&quot; reduced to a single-line text link
+   ========================================================= */
+QCommandLinkButton#helpButton {
+    background: transparent;
+    border: none;
+    color: #8b97a7;
+    text-align: left;
+    padding: 2px 0;
+    font-size: 9pt;
+    text-decoration: underline;
+}
+QCommandLinkButton#helpButton:hover {
+    color: #e6edf3;
+}
+
+/* =========================================================
+   Buttons — generic secondary / ghost / primary
+   ========================================================= */
+QPushButton {
+    background-color: #2a3748;
+    color: #e6edf3;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 6px 14px;
+    min-height: 24px;
+}
+QPushButton:hover {
+    background-color: #32415a;
+}
+QPushButton:pressed {
+    background-color: #263345;
+}
+QPushButton:disabled {
+    background-color: #243142;
+    color: #556274;
+}
+
+/* Primary call-to-action — bright orange &quot;Rename&quot; */
+QPushButton#renameButton {
+    background-color: #f97316;
+    color: #ffffff;
+    border: 1px solid #c2410c;
+    border-radius: 10px;
+    padding: 0 22px;
+    font-size: 11pt;
+    font-weight: 700;
+    min-height: 44px;
+}
+QPushButton#renameButton:hover {
+    background-color: #fb923c;
+    border-color: #c2410c;
+}
+QPushButton#renameButton:pressed {
+    background-color: #ea580c;
+}
+QPushButton#renameButton:disabled {
+    background-color: #6b3a1e;
+    color: #cbbdb0;
+    border-color: transparent;
+}
+
+/* Folder picker — compact icon square */
+QPushButton#openFolderButton {
+    background-color: #2a3748;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 0;
+    min-width: 40px;
+    min-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+}
+QPushButton#openFolderButton:hover {
+    background-color: #32415a;
+}
+
+/* Specific-files icon buttons */
+QPushButton#specificFilesAddButton,
+QPushButton#specificFilesClearButton {
+    background-color: #2a3748;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0;
+    min-width: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+}
+QPushButton#specificFilesAddButton:hover,
+QPushButton#specificFilesClearButton:hover {
+    background-color: #32415a;
+}
+QPushButton#specificFilesAddButton:disabled,
+QPushButton#specificFilesClearButton:disabled {
+    background-color: #243142;
+}
+
+/* =========================================================
+   Inputs — line edits, combos, spin boxes
+   ========================================================= */
+QLineEdit {
+    background-color: #2a3748;
+    color: #e6edf3;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 6px 10px;
+    selection-background-color: #f97316;
+    selection-color: #ffffff;
+    min-height: 24px;
+}
+QLineEdit:focus {
+    border: 1px solid #f97316;
+    background-color: #2a3748;
+}
+QLineEdit:disabled {
+    background-color: #243142;
+    color: #556274;
+}
+
+QComboBox {
+    background-color: #2a3748;
+    color: #e6edf3;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 6px 12px;
+    min-height: 24px;
+}
+QComboBox:focus {
+    border: 1px solid #f97316;
+}
+QComboBox:disabled {
+    background-color: #243142;
+    color: #556274;
+}
+QComboBox::drop-down {
+    border: none;
+    width: 20px;
+}
+QComboBox::down-arrow {
+    image: none;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #8b97a7;
+    margin-right: 8px;
+}
+QComboBox QAbstractItemView {
+    background-color: #2a3748;
+    color: #e6edf3;
+    border: 1px solid #2a3748;
+    border-radius: 6px;
+    padding: 4px;
+    selection-background-color: #f97316;
+    selection-color: #ffffff;
+    outline: 0;
+}
+
+QSpinBox {
+    background-color: #2a3748;
+    color: #e6edf3;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 6px 8px;
+    min-height: 24px;
+}
+QSpinBox:focus {
+    border: 1px solid #f97316;
+}
+QSpinBox:disabled {
+    background-color: #243142;
+    color: #556274;
+}
+QSpinBox::up-button, QSpinBox::down-button {
+    background: transparent;
+    border: none;
+    width: 16px;
+}
+QSpinBox::up-arrow {
+    image: none;
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 5px solid #8b97a7;
+}
+QSpinBox::down-arrow {
+    image: none;
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #8b97a7;
+}
+
+/* =========================================================
+   Check boxes
+   ========================================================= */
+QCheckBox {
+    color: #e6edf3;
+    spacing: 10px;
+    padding: 3px 0;
+    background: transparent;
+}
+QCheckBox:disabled {
+    color: #556274;
+}
+QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #556274;
+    border-radius: 4px;
+    background: transparent;
+}
+QCheckBox::indicator:hover {
+    border-color: #f97316;
+}
+QCheckBox::indicator:checked {
+    background-color: #f97316;
+    border-color: #f97316;
+    image: none;
+}
+QCheckBox::indicator:checked:hover {
+    background-color: #fb923c;
+    border-color: #fb923c;
+}
+QCheckBox::indicator:disabled {
+    border-color: #2a3748;
+    background: transparent;
+}
+
+/* =========================================================
+   List widgets (common + specific file filters)
+   ========================================================= */
+QListWidget {
+    background-color: #2a3748;
+    color: #e6edf3;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 4px;
+    outline: 0;
+}
+QListWidget::item {
+    padding: 6px 8px;
+    border-radius: 6px;
+}
+QListWidget::item:hover {
+    background-color: #32415a;
+}
+QListWidget::item:selected {
+    background-color: #f97316;
+    color: #ffffff;
+}
+QListWidget:disabled {
+    background-color: #243142;
+    color: #556274;
+}
+
+/* =========================================================
+   Preview table — maximal minimalism
+   ========================================================= */
+QTableWidget#filesList {
+    background-color: transparent;
+    alternate-background-color: #243142;
+    color: #e6edf3;
+    gridline-color: transparent;
+    border: none;
+    selection-background-color: #f97316;
+    selection-color: #ffffff;
+    outline: 0;
+}
+QTableWidget#filesList::item {
+    padding: 6px 8px;
+    border: none;
+}
+QTableWidget#filesList::item:hover {
+    background-color: #2a3748;
+}
+QHeaderView {
+    background: transparent;
+    border: none;
+}
+QHeaderView::section {
+    background-color: transparent;
+    color: #8b97a7;
+    padding: 10px 8px 8px 8px;
+    border: none;
+    border-bottom: 1px solid #2a3748;
+    font-size: 9pt;
+    font-weight: 600;
+}
+QTableCornerButton::section {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #2a3748;
+}
+
+/* =========================================================
+   Status bar + progress bar
+   ========================================================= */
+QStatusBar {
+    background: transparent;
+    color: #8b97a7;
+    border: none;
+    padding: 4px 16px;
+    font-size: 9pt;
+}
+QStatusBar::item {
+    border: none;
+}
+QProgressBar {
+    background-color: #2a3748;
+    color: transparent;
+    border: none;
+    border-radius: 3px;
+    max-height: 6px;
+    min-height: 6px;
+    text-align: center;
+}
+QProgressBar::chunk {
+    background-color: #f97316;
+    border-radius: 3px;
+}
+
+/* =========================================================
+   Menu bar / menus — very quiet
+   ========================================================= */
+QMenuBar {
+    background: transparent;
+    color: #8b97a7;
+    border: none;
+    padding: 10px 40px;
+    font-size: 10pt;
+}
+QMenuBar::item {
+    background: transparent;
+    padding: 8px 18px;
+    border-radius: 4px;
+}
+QMenuBar::item:selected {
+    background: transparent;
+    color: #f97316;
+}
+QMenuBar::item:pressed {
+    background: transparent;
+    color: #ea580c;
+}
+QMenu {
+    background-color: #2a3748;
+    color: #e6edf3;
+    border: 1px solid #2a3748;
+    border-radius: 6px;
+    padding: 6px;
+}
+QMenu::item {
+    padding: 6px 20px;
+    border-radius: 4px;
+}
+QMenu::item:selected {
+    background-color: #f97316;
+    color: #ffffff;
+}
+QMenu::separator {
+    height: 1px;
+    background: #2a3748;
+    margin: 4px 8px;
+}
+
+/* =========================================================
+   Separator frame (kept for backwards compat; now invisible)
+   ========================================================= */
+QFrame#separator {
+    background-color: transparent;
+    color: transparent;
+    max-height: 1px;
+    border: none;
+}
+
+/* =========================================================
+   Scroll areas &amp; scroll bars — 8px thin
+   ========================================================= */
+QScrollArea {
+    background: transparent;
+    border: none;
+}
+QScrollArea &gt; QWidget &gt; QWidget {
+    background: transparent;
+}
+QScrollBar:vertical {
+    background: transparent;
+    width: 8px;
+    margin: 0;
+    border: none;
+}
+QScrollBar::handle:vertical {
+    background: #2a3748;
+    border-radius: 4px;
+    min-height: 24px;
+    margin: 2px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #556274;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    height: 0;
+    background: none;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background: none;
+}
+QScrollBar:horizontal {
+    background: transparent;
+    height: 8px;
+    margin: 0;
+    border: none;
+}
+QScrollBar::handle:horizontal {
+    background: #2a3748;
+    border-radius: 4px;
+    min-width: 24px;
+    margin: 2px;
+}
+QScrollBar::handle:horizontal:hover {
+    background: #556274;
+}
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    width: 0;
+    background: none;
+}
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    background: none;
+}
+
+/* =========================================================
+   Splitter — invisible 1px handle
+   ========================================================= */
+QSplitter::handle {
+    background: transparent;
+}
+QSplitter::handle:horizontal {
+    width: 1px;
+}
+QSplitter::handle:horizontal:hover {
+    background: #2a3748;
+}
+
+/* =========================================================
+   Tooltip + validation label
+   ========================================================= */
+QToolTip {
+    background-color: #2a3748;
+    color: #e6edf3;
+    border: 1px solid #2a3748;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+QLabel#invalidLabel {
+    color: #f97316;
+    font-style: italic;
+    font-size: 9pt;
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="7" column="1">
-     <widget class="QGroupBox" name="Step4">
-      <property name="title">
-       <string>Step 4: Choose some options</string>
+   <layout class="QVBoxLayout" name="centralVLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>48</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>48</number>
+    </property>
+    <property name="bottomMargin">
+     <number>32</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="heroTitle">
+      <property name="text">
+       <string notr="true">Rename files</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_5">
-       <item row="3" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetMaximumSize</enum>
-         </property>
-         <item>
-          <widget class="QLabel" name="replaceLabel">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>110</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>105</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>... and replace with</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="replaceLine">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
-           <property name="focusPolicy">
-            <enum>Qt::ClickFocus</enum>
-           </property>
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="3" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <widget class="QLabel" name="inLabel">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>in</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="inneCombo">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="currentIndex">
-            <number>0</number>
-           </property>
-           <item>
-            <property name="text">
-             <string>Before</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>After</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetMaximumSize</enum>
-         </property>
-         <item>
-          <widget class="QLabel" name="findLabel">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>110</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>105</width>
-             <height>10</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Find...</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="findLine">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
-           <property name="focusPolicy">
-            <enum>Qt::ClickFocus</enum>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="clearButtonEnabled">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="1">
-        <widget class="QCheckBox" name="caseSentitiveCheckbox">
-         <property name="text">
-          <string>Case Sensitive</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QCheckBox" name="regexCheckbox">
-         <property name="text">
-          <string>Regular Expression</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" alignment="Qt::AlignHCenter">
-        <widget class="QLabel" name="invalidLabel">
-         <property name="styleSheet">
-          <string notr="true">color: red;</string>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
      </widget>
     </item>
-    <item row="1" column="1">
+    <item>
+     <spacer name="heroTitleSubtitleSpacer">
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Policy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>4</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QLabel" name="heroSubtitle">
+      <property name="text">
+       <string notr="true">Select a folder, choose a rule, preview and apply.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <spacer name="heroHelpSpacer">
+      <property name="orientation">
+       <enum>Qt::Orientation::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Policy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>0</width>
+        <height>8</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
      <widget class="QCommandLinkButton" name="helpButton">
-      <property name="styleSheet">
-       <string notr="true">border: 1px solid rgb(220, 220, 220);</string>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="text">
        <string>Welcome! If you need help, click me!</string>
       </property>
-     </widget>
-    </item>
-    <item row="6" column="1">
-     <widget class="QGroupBox" name="Step30">
-      <property name="title">
+      <property name="description">
        <string/>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_11">
-       <item>
-        <widget class="QLabel" name="Step3">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="text">
-          <string>Step 3: Set the rules </string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QComboBox" name="rulesCombo">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>24</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>9</pointsize>
-          </font>
-         </property>
-         <property name="currentIndex">
-          <number>1</number>
-         </property>
-         <property name="modelColumn">
-          <number>0</number>
-         </property>
-         <item>
-          <property name="text">
-           <string>Add Text or Date</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Replace File Name</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Replace File Extension</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Make sequential</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="startLabel">
-         <property name="text">
-          <string>Start at</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="startSpin">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="countLabel">
-         <property name="text">
-          <string>Count by</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="countSpin">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="wrapping">
-          <bool>false</bool>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </widget>
     </item>
-    <item row="4" column="1">
-     <widget class="QGroupBox" name="Step1">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="title">
-       <string>Step 1: Select the folder where the files are located</string>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetDefaultConstraint</enum>
-       </property>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetFixedSize</enum>
-         </property>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <property name="spacing">
-            <number>2</number>
-           </property>
-           <item>
-            <widget class="QPushButton" name="openFolderButton">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="cursor">
-              <cursorShape>PointingHandCursor</cursorShape>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset theme="Segoe UI,9,-1,5,400,0,0,0,0,0,0,0,0,0,0,1">
-               <normaloff>../Lite/gui/img/open-folder.png</normaloff>../Lite/gui/img/open-folder.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>36</width>
-               <height>20</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="pathLine">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>24</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="includeFoldersCheckbox">
-           <property name="text">
-            <string>Include folders</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="includeSubdirCheckbox">
-           <property name="text">
-            <string>Include files in subdirectories</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="7" rowspan="8">
-     <spacer name="verticalSpacerRight">
+    <item>
+     <widget class="QSplitter" name="mainSplitter">
       <property name="orientation">
-       <enum>Qt::Vertical</enum>
+       <enum>Qt::Orientation::Horizontal</enum>
       </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Maximum</enum>
+      <property name="handleWidth">
+       <number>1</number>
       </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>30</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="0" column="0" rowspan="8">
-     <spacer name="verticalSpacerLeft">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Maximum</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>30</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="8" column="1">
-     <layout class="QVBoxLayout" name="Step50">
-      <item>
-       <widget class="QCheckBox" name="backupCheckbox">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">margin-left: 9px;</string>
-        </property>
-        <property name="text">
-         <string>Backup files before renaming</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="Line" name="separator">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="Step5">
-        <property name="styleSheet">
-         <string notr="true">margin-left: 9px;</string>
-        </property>
-        <property name="text">
-         <string>Step 5: Rename them</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="Buttons">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetFixedSize</enum>
-        </property>
-        <item>
-         <widget class="QPushButton" name="renameButton">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>26</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Rename</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="exitButton">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>26</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Exit</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item row="5" column="1">
-     <widget class="QGroupBox" name="Step2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>200</height>
-       </size>
-      </property>
-      <property name="autoFillBackground">
+      <property name="childrenCollapsible">
        <bool>false</bool>
       </property>
-      <property name="title">
-       <string>Step 2: Select the types of files to rename</string>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
-       <property name="sizeConstraint">
-        <enum>QLayout::SetMaximumSize</enum>
+      <widget class="QScrollArea" name="leftScroll">
+       <property name="minimumSize">
+        <size>
+         <width>460</width>
+         <height>0</height>
+        </size>
        </property>
-       <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QCheckBox" name="allFilesCheckbox">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="cursor">
-            <cursorShape>ArrowCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string>All types of files</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>8</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="commonFilesCheckbox">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="cursor">
-            <cursorShape>ArrowCursor</cursorShape>
-           </property>
-           <property name="whatsThis">
-            <string/>
-           </property>
-           <property name="text">
-            <string>Common types of files:</string>
-           </property>
-           <property name="checkable">
-            <bool>true</bool>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-           <property name="autoExclusive">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QListWidget" name="commonFilesList">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
-           <property name="selectionMode">
-            <enum>QAbstractItemView::MultiSelection</enum>
-           </property>
-           <property name="spacing">
-            <number>1</number>
-           </property>
-           <property name="viewMode">
-            <enum>QListView::ListMode</enum>
-           </property>
-           <property name="uniformItemSizes">
-            <bool>false</bool>
-           </property>
-           <property name="wordWrap">
-            <bool>false</bool>
-           </property>
-           <property name="selectionRectVisible">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QGridLayout" name="gridLayout">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetDefaultConstraint</enum>
+       <property name="frameShape">
+        <enum>QFrame::Shape::NoFrame</enum>
+       </property>
+       <property name="horizontalScrollBarPolicy">
+        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+       </property>
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="leftPanel">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>-580</y>
+          <width>503</width>
+          <height>964</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="leftVLayout">
+         <property name="spacing">
+          <number>0</number>
          </property>
-         <item row="1" column="0">
-          <widget class="QLineEdit" name="specificFilesLine">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="placeholderText">
-            <string>Ex: mkv</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="2">
-          <widget class="QCheckBox" name="specificFilesCheckbox">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="cursor">
-            <cursorShape>ArrowCursor</cursorShape>
-           </property>
-           <property name="whatsThis">
-            <string/>
-           </property>
-           <property name="text">
-            <string>Specific types of files:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <layout class="QHBoxLayout" name="horizontalLayout">
-           <item>
-            <widget class="QPushButton" name="specificFilesAddButton">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>24</width>
-               <height>20</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="specificFilesClearButton">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>24</width>
-               <height>20</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item row="3" column="0" colspan="2">
-          <widget class="QListWidget" name="specificFilesList">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>20</number>
+         </property>
+         <property name="bottomMargin">
+          <number>12</number>
+         </property>
+         <item>
+          <widget class="QGroupBox" name="Step1">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-            </font>
+           <property name="title">
+            <string>Step 1: Select the folder where the files are located</string>
            </property>
-           <property name="editTriggers">
-            <set>QAbstractItemView::NoEditTriggers</set>
-           </property>
-           <property name="showDropIndicator" stdset="0">
-            <bool>false</bool>
-           </property>
-           <property name="selectionMode">
-            <enum>QAbstractItemView::NoSelection</enum>
-           </property>
-           <property name="resizeMode">
-            <enum>QListView::Fixed</enum>
-           </property>
-           <property name="spacing">
-            <number>1</number>
-           </property>
-           <property name="viewMode">
-            <enum>QListView::ListMode</enum>
-           </property>
-           <property name="uniformItemSizes">
-            <bool>false</bool>
-           </property>
-           <property name="wordWrap">
-            <bool>false</bool>
-           </property>
-           <property name="selectionRectVisible">
-            <bool>true</bool>
-           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <property name="spacing">
+               <number>12</number>
+              </property>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="openFolderButton">
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>18</width>
+                    <height>18</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="pathLine">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>38</height>
+                   </size>
+                  </property>
+                  <property name="placeholderText">
+                   <string notr="true">No folder selected</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="includeFoldersCheckbox">
+                <property name="text">
+                 <string>Include folders</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="includeSubdirCheckbox">
+                <property name="text">
+                 <string>Include files in subdirectories</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
           </widget>
          </item>
+         <item>
+          <widget class="QWidget" name="stepSeparatorContainer1" native="true">
+           <layout class="QVBoxLayout" name="stepSeparatorLayout1">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>6</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="stepSeparator">
+              <property name="frameShape">
+               <enum>QFrame::Shape::HLine</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Shadow::Plain</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="Step2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Step 2: Select the types of files to rename</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="spacing">
+             <number>16</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout" stretch="1,0,0">
+              <property name="spacing">
+               <number>12</number>
+              </property>
+              <item>
+               <widget class="QCheckBox" name="allFilesCheckbox">
+                <property name="cursor">
+                 <cursorShape>ArrowCursor</cursorShape>
+                </property>
+                <property name="text">
+                 <string>All types of files</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="commonFilesCheckbox">
+                <property name="cursor">
+                 <cursorShape>ArrowCursor</cursorShape>
+                </property>
+                <property name="text">
+                 <string>Common types of files:</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <property name="autoExclusive">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="commonFilesList">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>120</height>
+                 </size>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::SelectionMode::MultiSelection</enum>
+                </property>
+                <property name="spacing">
+                 <number>1</number>
+                </property>
+                <property name="viewMode">
+                 <enum>QListView::ViewMode::ListMode</enum>
+                </property>
+                <property name="uniformItemSizes">
+                 <bool>false</bool>
+                </property>
+                <property name="wordWrap">
+                 <bool>false</bool>
+                </property>
+                <property name="selectionRectVisible">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QGridLayout" name="gridLayout">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="horizontalSpacing">
+               <number>8</number>
+              </property>
+              <property name="verticalSpacing">
+               <number>12</number>
+              </property>
+              <item row="0" column="0" colspan="2">
+               <widget class="QCheckBox" name="specificFilesCheckbox">
+                <property name="cursor">
+                 <cursorShape>ArrowCursor</cursorShape>
+                </property>
+                <property name="text">
+                 <string>Specific types of files:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLineEdit" name="specificFilesLine">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>38</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="placeholderText">
+                 <string>Ex: mkv</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <property name="spacing">
+                 <number>6</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="specificFilesAddButton">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>16</width>
+                    <height>16</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="specificFilesClearButton">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="cursor">
+                   <cursorShape>PointingHandCursor</cursorShape>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>16</width>
+                    <height>16</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0" colspan="2">
+               <widget class="QListWidget" name="specificFilesList">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>120</height>
+                 </size>
+                </property>
+                <property name="editTriggers">
+                 <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+                </property>
+                <property name="showDropIndicator" stdset="0">
+                 <bool>false</bool>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::SelectionMode::NoSelection</enum>
+                </property>
+                <property name="resizeMode">
+                 <enum>QListView::ResizeMode::Fixed</enum>
+                </property>
+                <property name="spacing">
+                 <number>1</number>
+                </property>
+                <property name="viewMode">
+                 <enum>QListView::ViewMode::ListMode</enum>
+                </property>
+                <property name="uniformItemSizes">
+                 <bool>false</bool>
+                </property>
+                <property name="wordWrap">
+                 <bool>false</bool>
+                </property>
+                <property name="selectionRectVisible">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="stepSeparatorContainer2" native="true">
+           <layout class="QVBoxLayout" name="stepSeparatorLayout2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>6</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="stepSeparator2">
+              <property name="frameShape">
+               <enum>QFrame::Shape::HLine</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Shadow::Plain</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="Step30">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Step 3: Set the rules </string>
+           </property>
+           <layout class="QVBoxLayout" name="step30Layout">
+            <property name="spacing">
+             <number>12</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="Step3">
+              <property name="visible">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: #8b97a7; font-weight: 600; font-size: 10pt;</string>
+              </property>
+              <property name="text">
+               <string>Step 3: Set the rules </string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="2,0,0,0,0">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <item>
+               <widget class="QComboBox" name="rulesCombo">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>38</height>
+                 </size>
+                </property>
+                <property name="currentIndex">
+                 <number>1</number>
+                </property>
+                <property name="modelColumn">
+                 <number>0</number>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Add Text or Date</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Replace File Name</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Replace File Extension</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Make sequential</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="startLabel">
+                <property name="styleSheet">
+                 <string notr="true">color: #8b97a7;</string>
+                </property>
+                <property name="text">
+                 <string>Start at</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="startSpin">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>76</width>
+                  <height>38</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="countLabel">
+                <property name="styleSheet">
+                 <string notr="true">color: #8b97a7;</string>
+                </property>
+                <property name="text">
+                 <string>Count by</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="countSpin">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>76</width>
+                  <height>38</height>
+                 </size>
+                </property>
+                <property name="wrapping">
+                 <bool>false</bool>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="stepSeparatorContainer3" native="true">
+           <layout class="QVBoxLayout" name="stepSeparatorLayout3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>6</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="stepSeparator3">
+              <property name="frameShape">
+               <enum>QFrame::Shape::HLine</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Shadow::Plain</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="Step4">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Step 4: Choose some options</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_5" columnstretch="3,2">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <property name="spacing">
+             <number>12</number>
+            </property>
+            <item row="0" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_6">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="findLabel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: #8b97a7;</string>
+                </property>
+                <property name="text">
+                 <string>Find...</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="findLine">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>38</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::FocusPolicy::ClickFocus</enum>
+                </property>
+                <property name="layoutDirection">
+                 <enum>Qt::LayoutDirection::LeftToRight</enum>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="1">
+             <widget class="QCheckBox" name="caseSentitiveCheckbox">
+              <property name="text">
+               <string>Case Sensitive</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="invalidLabel">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="regexCheckbox">
+              <property name="text">
+               <string>Regular Expression</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="replaceLabel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>120</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: #8b97a7;</string>
+                </property>
+                <property name="text">
+                 <string>... and replace with</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="replaceLine">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>38</height>
+                 </size>
+                </property>
+                <property name="focusPolicy">
+                 <enum>Qt::FocusPolicy::ClickFocus</enum>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="2" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,1">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="inLabel">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: #8b97a7;</string>
+                </property>
+                <property name="text">
+                 <string>in</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="inneCombo">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>38</height>
+                 </size>
+                </property>
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Before</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>After</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QWidget" name="stepSeparatorContainer4" native="true">
+           <layout class="QVBoxLayout" name="stepSeparatorLayout4">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>6</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QFrame" name="stepSeparator4">
+              <property name="frameShape">
+               <enum>QFrame::Shape::HLine</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Shadow::Plain</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="Step5Box">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Step 5: Rename them</string>
+           </property>
+           <layout class="QVBoxLayout" name="Step50">
+            <property name="spacing">
+             <number>12</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="backupCheckbox">
+              <property name="text">
+               <string>Backup files before renaming</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="separator">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>1</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::Shape::NoFrame</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Shadow::Plain</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="Step5">
+              <property name="visible">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: #8b97a7; font-weight: 600; font-size: 10pt;</string>
+              </property>
+              <property name="text">
+               <string>Step 5: Rename them</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="Buttons" stretch="2">
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <item>
+               <widget class="QPushButton" name="renameButton">
+                <property name="font">
+                 <font>
+                  <pointsize>11</pointsize>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="text">
+                 <string>Rename</string>
+                </property>
+                <property name="autoDefault">
+                 <bool>true</bool>
+                </property>
+                <property name="default">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <spacer name="leftPanelStretch">
+           <property name="orientation">
+            <enum>Qt::Orientation::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="6" rowspan="9">
-     <layout class="QVBoxLayout" name="Frame">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetFixedSize</enum>
-      </property>
-      <item>
-       <widget class="QTableWidget" name="filesList">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>500</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::Box</enum>
-        </property>
-        <property name="verticalScrollBarPolicy">
-         <enum>Qt::ScrollBarAlwaysOn</enum>
-        </property>
-        <property name="sizeAdjustPolicy">
-         <enum>QAbstractScrollArea::AdjustToContents</enum>
-        </property>
-        <property name="autoScroll">
-         <bool>true</bool>
-        </property>
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-        <property name="tabKeyNavigation">
-         <bool>false</bool>
-        </property>
-        <property name="showDropIndicator" stdset="0">
-         <bool>false</bool>
-        </property>
-        <property name="dragDropOverwriteMode">
-         <bool>false</bool>
-        </property>
-        <property name="alternatingRowColors">
-         <bool>false</bool>
-        </property>
-        <property name="selectionMode">
-         <enum>QAbstractItemView::NoSelection</enum>
-        </property>
-        <property name="textElideMode">
-         <enum>Qt::ElideLeft</enum>
-        </property>
-        <property name="horizontalScrollMode">
-         <enum>QAbstractItemView::ScrollPerItem</enum>
-        </property>
-        <property name="showGrid">
-         <bool>false</bool>
-        </property>
-        <property name="gridStyle">
-         <enum>Qt::SolidLine</enum>
-        </property>
-        <property name="sortingEnabled">
-         <bool>true</bool>
-        </property>
-        <property name="wordWrap">
-         <bool>false</bool>
-        </property>
-        <property name="cornerButtonEnabled">
-         <bool>true</bool>
-        </property>
-        <property name="rowCount">
+       </widget>
+      </widget>
+      <widget class="QWidget" name="rightPanel" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>380</width>
+         <height>0</height>
+        </size>
+       </property>
+       <layout class="QVBoxLayout" name="rightVLayout">
+        <property name="spacing">
          <number>0</number>
         </property>
-        <property name="columnCount">
-         <number>5</number>
+        <property name="leftMargin">
+         <number>20</number>
         </property>
-        <attribute name="horizontalHeaderVisible">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="horizontalHeaderCascadingSectionResizes">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="horizontalHeaderMinimumSectionSize">
-         <number>80</number>
-        </attribute>
-        <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>90</number>
-        </attribute>
-        <attribute name="horizontalHeaderHighlightSections">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="horizontalHeaderStretchLastSection">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderVisible">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderCascadingSectionResizes">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderMinimumSectionSize">
-         <number>26</number>
-        </attribute>
-        <attribute name="verticalHeaderDefaultSectionSize">
-         <number>26</number>
-        </attribute>
-        <attribute name="verticalHeaderHighlightSections">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderShowSortIndicator" stdset="0">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderStretchLastSection">
-         <bool>false</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>File name</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>New file name</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Extension</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Path</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Size</string>
-         </property>
-        </column>
-       </widget>
-      </item>
-     </layout>
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
+        <property name="bottomMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <layout class="QVBoxLayout" name="Frame">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QTableWidget" name="filesList">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::Shape::NoFrame</enum>
+            </property>
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarPolicy::ScrollBarAsNeeded</enum>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QAbstractScrollArea::SizeAdjustPolicy::AdjustToContents</enum>
+            </property>
+            <property name="autoScroll">
+             <bool>true</bool>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
+            </property>
+            <property name="tabKeyNavigation">
+             <bool>false</bool>
+            </property>
+            <property name="showDropIndicator" stdset="0">
+             <bool>false</bool>
+            </property>
+            <property name="dragDropOverwriteMode">
+             <bool>false</bool>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionMode">
+             <enum>QAbstractItemView::SelectionMode::NoSelection</enum>
+            </property>
+            <property name="textElideMode">
+             <enum>Qt::TextElideMode::ElideMiddle</enum>
+            </property>
+            <property name="horizontalScrollMode">
+             <enum>QAbstractItemView::ScrollMode::ScrollPerPixel</enum>
+            </property>
+            <property name="showGrid">
+             <bool>false</bool>
+            </property>
+            <property name="gridStyle">
+             <enum>Qt::PenStyle::SolidLine</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <property name="wordWrap">
+             <bool>false</bool>
+            </property>
+            <property name="cornerButtonEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderCascadingSectionResizes">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="horizontalHeaderMinimumSectionSize">
+             <number>80</number>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>140</number>
+            </attribute>
+            <attribute name="horizontalHeaderHighlightSections">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderCascadingSectionResizes">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>28</number>
+            </attribute>
+            <attribute name="verticalHeaderDefaultSectionSize">
+             <number>32</number>
+            </attribute>
+            <attribute name="verticalHeaderHighlightSections">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderStretchLastSection">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>File name</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>New file name</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Extension</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Path</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Size</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignTrailing|AlignVCenter</set>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1111</width>
-     <height>22</height>
+     <width>1216</width>
+     <height>54</height>
     </rect>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>false</bool>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -1002,13 +1812,6 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
-    <addaction name="actionDocumentation"/>
-    <addaction name="actionAbout"/>
-   </widget>
    <widget class="QMenu" name="menuOptions">
     <property name="title">
      <string>Options</string>
@@ -1017,9 +1820,21 @@
     <addaction name="separator"/>
     <addaction name="actionOpen_settings"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionDocumentation"/>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuOptions"/>
    <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="sizeGripEnabled">
+    <bool>true</bool>
+   </property>
   </widget>
   <action name="actionExit">
    <property name="text">
@@ -1107,12 +1922,13 @@
   <tabstop>rulesCombo</tabstop>
   <tabstop>startSpin</tabstop>
   <tabstop>countSpin</tabstop>
+  <tabstop>findLine</tabstop>
   <tabstop>caseSentitiveCheckbox</tabstop>
   <tabstop>regexCheckbox</tabstop>
+  <tabstop>replaceLine</tabstop>
   <tabstop>inneCombo</tabstop>
   <tabstop>backupCheckbox</tabstop>
   <tabstop>renameButton</tabstop>
-  <tabstop>exitButton</tabstop>
   <tabstop>filesList</tabstop>
  </tabstops>
  <resources/>

@@ -67,7 +67,6 @@ class UiTranslator:
         ui.backupCheckbox.setText(t("Backup files before renaming"))
         ui.Step5.setText(t("Step 5: Rename them"))
         ui.renameButton.setText(t("Rename"))
-        ui.exitButton.setText(t("Exit"))
 
         ui.filesList.setHorizontalHeaderLabels(
             [
